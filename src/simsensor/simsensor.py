@@ -53,18 +53,18 @@ class SimSensor(Plugin):
     
     @pyqtSlot()
     def roll_changed(self):
-        self.twist_msg.twist.twist.linear.x = self._widget.twist_roll_slider.value()/100.0
-        self._widget.twist_roll_lcd.display(self.twist_msg.twist.twist.linear.x)
+        self.twist_msg.twist.twist.angular.x = self._widget.twist_roll_slider.value()/100.0
+        self._widget.twist_roll_lcd.display(self.twist_msg.twist.twist.angular.x)
     
     @pyqtSlot()
     def pitch_changed(self):
-        self.twist_msg.twist.twist.linear.y = self._widget.twist_pitch_slider.value()/100.0
-        self._widget.twist_pitch_lcd.display(self.twist_msg.twist.twist.linear.y)
+        self.twist_msg.twist.twist.angular.y = self._widget.twist_pitch_slider.value()/100.0
+        self._widget.twist_pitch_lcd.display(self.twist_msg.twist.twist.angular.y)
     
     @pyqtSlot()
     def yaw_changed(self):
-        self.twist_msg.twist.twist.linear.z = self._widget.twist_yaw_slider.value()/100.0
-        self._widget.twist_yaw_lcd.display(self.twist_msg.twist.twist.linear.z)
+        self.twist_msg.twist.twist.angular.z = self._widget.twist_yaw_slider.value()/100.0
+        self._widget.twist_yaw_lcd.display(self.twist_msg.twist.twist.angular.z)
     
     def shutdown_plugin(self):
         self.timer.shutdown()
