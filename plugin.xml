@@ -1,0 +1,11 @@
+<library path="src">
+    <class name="Simulated sensor" type="simsensor.simsensor.SimSensor" base_class_type="rqt_gui_py::Plugin">
+        <description>
+            Simulated sensor
+        </description>
+        <qtgui>
+            <label>Simulated sensor</label>
+            <statustip>Provides artificial twist messages.</statustip>
+        </qtgui>
+    </class>
+</library>
