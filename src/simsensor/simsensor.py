@@ -25,6 +25,7 @@ class SimSensor(Plugin):
         context.add_widget(self._widget)
 
         self.twist_msg = TwistWithCovarianceStamped()
+        self.twist_msg.header.frame_id = "base_link"
 
         self.twist_pub = rospy.Publisher("twist", TwistWithCovarianceStamped, queue_size=10)
         self.timer = rospy.Timer(rospy.Duration(1.0/30), self.timer_callback)
@@ -35,7 +36,12 @@ class SimSensor(Plugin):
         self._widget.twist_roll_slider.valueChanged.connect(self.roll_changed)
         self._widget.twist_pitch_slider.valueChanged.connect(self.pitch_changed)
         self._widget.twist_yaw_slider.valueChanged.connect(self.yaw_changed)
-        
+        self._widget.frame_edit.textChanged.connect(self.frame_changed)
+       
+    @pyqtSlot()
+    def frame_changed(self):
+        self.twist_msg.header.frame_id = self._widget.frame_edit.text()
+ 
     @pyqtSlot()
     def x_changed(self):
         self.twist_msg.twist.twist.linear.x = self._widget.twist_x_slider.value()/100.0
@@ -71,7 +77,6 @@ class SimSensor(Plugin):
         self.twist_pub.unregister()
 
     def timer_callback(self, event):
-        self.twist_msg.header.frame_id = "base_link"
         self.twist_msg.header.stamp = event.current_real
         self.twist_msg.header.seq += 1
         self.twist_pub.publish(self.twist_msg)
